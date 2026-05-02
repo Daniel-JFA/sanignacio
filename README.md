@@ -20,3 +20,7 @@ La salida de producción se genera en:
 ```bash
 dist/san-ignacio-angular/browser
 ```
+
+## Despliegue
+
+Vercel despliega automáticamente cada push a `main`.
