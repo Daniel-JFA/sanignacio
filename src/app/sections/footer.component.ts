@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -10,12 +10,12 @@ import { Component } from '@angular/core';
       <div class="mx-auto px-5 pb-8 pt-14 lg:px-10" style="max-width: 1200px">
         <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div>
-            <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gold font-display text-xs font-bold text-gold">IHS</div>
-              <div>
-                <div class="font-display text-xs uppercase tracking-[0.06em] text-white">Iglesia San Ignacio de Loyola</div>
-                <div class="font-body text-[0.6rem] uppercase tracking-[0.12em] text-gold">Medellín</div>
-              </div>
+            <div class="flex items-center">
+              <img
+                src="/images/logo-san-ignacio.jpeg"
+                alt="Parroquia San Ignacio de Loyola"
+                class="h-14 w-auto max-w-[240px] rounded-md bg-white p-1 object-contain"
+              />
             </div>
             <p class="mt-4 font-body text-sm leading-relaxed text-church-text-muted">
               Fe, Razón, Justicia, Servicio.<br />
@@ -67,7 +67,8 @@ import { Component } from '@angular/core';
         <div class="my-8" style="height: 1px; background: rgba(255,255,255,0.08)"></div>
         <div class="flex flex-col items-center justify-between gap-3 sm:flex-row">
           <p class="font-body text-xs text-church-text-muted">© 2024 Iglesia San Ignacio de Loyola. Todos los derechos reservados.</p>
-          <div class="flex gap-4">
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <span class="font-body text-xs text-church-text-muted">Visitas internas: {{ visitCount }}</span>
             <a href="#contacto" class="font-body text-xs text-church-text-muted transition-colors hover:text-white">Política de privacidad</a>
             <a href="#contacto" class="font-body text-xs text-church-text-muted transition-colors hover:text-white">Términos de uso</a>
           </div>
@@ -79,13 +80,22 @@ import { Component } from '@angular/core';
     </footer>
   `,
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
+  visitCount = 0;
+
   quickLinks = [
     { label: 'Horarios de misa', href: '#agenda' },
     { label: 'Confesiones', href: '#contacto' },
-    { label: 'Sacramentos', href: '#contacto' },
+    { label: 'Despacho', href: '#despacho' },
     { label: 'Recorrido patrimonial', href: '#recorrido' },
     { label: 'Historias', href: '#historias' },
     { label: 'Transparencia', href: '#contacto' },
   ];
+
+  ngOnInit() {
+    const storageKey = 'sanIgnacioVisitCount';
+    const currentCount = Number(localStorage.getItem(storageKey) ?? '0');
+    this.visitCount = Number.isFinite(currentCount) ? currentCount + 1 : 1;
+    localStorage.setItem(storageKey, String(this.visitCount));
+  }
 }

@@ -4,10 +4,10 @@ import { Component, HostListener } from '@angular/core';
 const NAV_LINKS = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'La Iglesia', href: '#raices' },
+  { label: 'Despacho', href: '#despacho' },
   { label: 'Celebraciones', href: '#agenda' },
   { label: 'Historias', href: '#historias' },
   { label: 'Recorrido', href: '#recorrido' },
-  { label: 'Agenda', href: '#agenda' },
   { label: 'Contacto', href: '#contacto' },
 ];
 
@@ -22,12 +22,12 @@ const NAV_LINKS = [
       [style.background]="scrolled ? '#7A1F1F' : 'linear-gradient(to bottom, rgba(26,20,16,0.85), rgba(26,20,16,0.4))'"
     >
       <div class="mx-auto flex h-full items-center justify-between px-5 lg:px-10" style="max-width: 1200px">
-        <a href="#inicio" class="flex items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gold font-display text-xs font-bold text-gold">IHS</div>
-          <div class="hidden sm:block">
-            <div class="font-display text-xs uppercase leading-tight tracking-[0.06em] text-white">Iglesia San Ignacio de Loyola</div>
-            <div class="font-body text-[0.6rem] uppercase tracking-[0.12em] text-gold">Medellín</div>
-          </div>
+        <a href="#inicio" class="flex items-center" aria-label="Ir al inicio">
+          <img
+            src="/images/logo-san-ignacio.jpeg"
+            alt="Parroquia San Ignacio de Loyola"
+            class="h-11 w-auto max-w-[180px] rounded-md bg-white p-1 object-contain shadow-sm sm:max-w-[240px]"
+          />
         </a>
 
         <nav class="hidden items-center gap-6 lg:flex">
