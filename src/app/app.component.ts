@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './sections/navigation.component';
 import { HeroComponent } from './sections/hero.component';
 import { ServiceCardsComponent } from './sections/service-cards.component';
+import { DespachoComponent } from './sections/despacho.component';
 import { NuestrasRaicesComponent } from './sections/nuestras-raices.component';
 import { ElPadreCuentaComponent } from './sections/el-padre-cuenta.component';
 import { RecorridoPatrimonialComponent } from './sections/recorrido-patrimonial.component';
@@ -20,6 +21,7 @@ import { FooterComponent } from './sections/footer.component';
     NavigationComponent,
     HeroComponent,
     ServiceCardsComponent,
+    DespachoComponent,
     NuestrasRaicesComponent,
     ElPadreCuentaComponent,
     RecorridoPatrimonialComponent,
@@ -33,6 +35,7 @@ import { FooterComponent } from './sections/footer.component';
     <app-navigation />
     <app-hero />
     <app-service-cards />
+    <app-despacho />
     <app-nuestras-raices />
     <app-el-padre-cuenta />
     <app-recorrido-patrimonial />

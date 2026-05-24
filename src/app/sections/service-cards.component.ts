@@ -27,6 +27,6 @@ export class ServiceCardsComponent {
     { icon: '♱', title: 'Horarios de misa', desc: 'Encuentra aquí los horarios de nuestras celebraciones.', link: 'VER HORARIOS', href: '#agenda' },
     { icon: '✚', title: 'Confesiones', desc: 'Un espacio para el encuentro con la misericordia de Dios.', link: 'VER CONFESIONES', href: '#contacto' },
     { icon: '⌖', title: 'Cómo llegar', desc: 'Estamos en el corazón del centro de Medellín.', link: 'VER RUTA', href: '#contacto' },
-    { icon: '✦', title: 'Sacramentos', desc: 'Información sobre bautizos, matrimonios y otros sacramentos.', link: 'MÁS INFORMACIÓN', href: '#contacto' },
+    { icon: '✦', title: 'Despacho', desc: 'Requisitos para bautismos, matrimonios y trámites parroquiales.', link: 'MÁS INFORMACIÓN', href: '#despacho' },
   ];
 }
