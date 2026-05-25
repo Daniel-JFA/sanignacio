@@ -26,17 +26,19 @@ type OfficeSection = {
         </div>
 
         <div class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <article *ngFor="let item of officeSections" class="rounded-lg border border-church-border bg-cream p-6 shadow-card lg:p-8">
+          <article *ngFor="let item of officeSections" class="flex h-full flex-col rounded-lg border border-church-border bg-cream p-6 shadow-card lg:p-8">
             <h3 class="font-display text-2xl leading-tight text-burgundy">{{ item.title }}</h3>
             <p *ngIf="item.intro" class="mt-3 font-body text-sm leading-relaxed text-church-text-secondary">{{ item.intro }}</p>
             <p class="mt-4 font-body text-sm leading-relaxed text-church-text-secondary">{{ item.summary }}</p>
-            <button
-              type="button"
-              class="mt-6 rounded-md bg-burgundy px-5 py-3 font-body text-sm font-semibold text-white transition-colors hover:bg-burgundy-dark focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
-              (click)="openModal(item)"
-            >
-              Ver requisitos
-            </button>
+            <div class="mt-auto pt-6">
+              <button
+                type="button"
+                class="rounded-md bg-burgundy px-5 py-3 font-body text-sm font-semibold text-white transition-colors hover:bg-burgundy-dark focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
+                (click)="openModal(item)"
+              >
+                Ver requisitos
+              </button>
+            </div>
           </article>
         </div>
       </div>
