@@ -13,8 +13,10 @@
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
+    "@angular/forms": "^17.3.12",
     "@angular/platform-browser": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@lucide/angular": "^1.17.0",
     "gsap": "^3.12.0",
     "lenis": "^1.1.0",
     "lucide-angular": "^0.20.0",
@@ -23,8 +25,8 @@
     "zone.js": "^0.14.0"
   },
   "devDependencies": {
-    "@angular/cli": "^17.3.17",
     "@angular-devkit/build-angular": "^17.3.0",
+    "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.0",
     "autoprefixer": "^10.4.23",
     "postcss": "^8.5.6",

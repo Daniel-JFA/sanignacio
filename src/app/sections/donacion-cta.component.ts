@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   selector: 'app-donacion-cta',
   standalone: true,
   template: `
-    <section id="donar" class="py-10" style="background: linear-gradient(90deg, #5A1515, #7A1F1F)">
-      <div class="mx-auto flex flex-col items-center justify-between gap-6 px-5 lg:flex-row lg:px-10" style="max-width: 1200px">
+    <section id="donar" class="py-10" style="background: linear-gradient(90deg, #5A1515, #7A1F1F)" #sectionEl>
+      <div #innerEl class="mx-auto flex flex-col items-center justify-between gap-6 px-5 lg:flex-row lg:px-10" style="max-width: 1200px; opacity: 0; transform: translateY(25px)">
         <div class="flex items-center gap-4">
           <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-gold text-gold">
             <span class="text-2xl" aria-hidden="true">♱</span>
@@ -27,4 +29,14 @@ import { Component } from '@angular/core';
     </section>
   `,
 })
-export class DonacionCtaComponent {}
+export class DonacionCtaComponent implements AfterViewInit {
+  @ViewChild('sectionEl') sectionEl!: ElementRef<HTMLElement>;
+  @ViewChild('innerEl') innerEl!: ElementRef<HTMLElement>;
+
+  ngAfterViewInit(): void {
+    gsap.to(this.innerEl.nativeElement, {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: this.sectionEl.nativeElement, start: 'top 85%', once: true },
+    });
+  }
+}

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 type OfficeSection = {
   title: string;
@@ -15,9 +17,9 @@ type OfficeSection = {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="despacho" class="bg-white px-5 py-16 lg:px-10 lg:py-24">
+    <section id="despacho" class="bg-white px-5 py-16 lg:px-10 lg:py-24" #sectionEl>
       <div class="mx-auto" style="max-width: 1100px">
-        <div class="max-w-3xl">
+        <div class="max-w-3xl" #headerEl style="opacity: 0; transform: translateY(30px)">
           <span class="font-body text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-gold">Despacho parroquial</span>
           <h2 class="mt-2 font-display text-3xl leading-tight text-church-text md:text-4xl">Requisitos y trámites</h2>
           <p class="mt-4 font-body text-base leading-relaxed text-church-text-secondary">
@@ -25,7 +27,7 @@ type OfficeSection = {
           </p>
         </div>
 
-        <div class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div #cardsEl class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2" style="opacity: 0; transform: translateY(40px)">
           <article *ngFor="let item of officeSections" class="flex h-full flex-col rounded-lg border border-church-border bg-cream p-6 shadow-card lg:p-8">
             <h3 class="font-display text-2xl leading-tight text-burgundy">{{ item.title }}</h3>
             <p *ngIf="item.intro" class="mt-3 font-body text-sm leading-relaxed text-church-text-secondary">{{ item.intro }}</p>
@@ -99,8 +101,21 @@ type OfficeSection = {
     </div>
   `,
 })
-export class DespachoComponent {
+export class DespachoComponent implements AfterViewInit {
+  @ViewChild('sectionEl') sectionEl!: ElementRef<HTMLElement>;
+  @ViewChild('headerEl') headerEl!: ElementRef<HTMLElement>;
+  @ViewChild('cardsEl') cardsEl!: ElementRef<HTMLElement>;
+
   selectedSection: OfficeSection | null = null;
+
+  ngAfterViewInit(): void {
+    const trigger = { trigger: this.sectionEl.nativeElement, start: 'top 80%', once: true };
+    gsap.to(this.headerEl.nativeElement, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: trigger });
+    gsap.to(this.cardsEl.nativeElement, {
+      opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: this.sectionEl.nativeElement, start: 'top 72%', once: true },
+    });
+  }
 
   officeSections: OfficeSection[] = [
     {

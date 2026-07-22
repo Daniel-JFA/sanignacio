@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DataService, SiteConfig } from '../services/data.service';
 
 @Component({
   selector: 'app-footer',
@@ -26,9 +27,9 @@ import { Component, OnInit } from '@angular/core';
           <div>
             <h4 class="mb-4 font-body text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-gold">Contacto</h4>
             <div class="space-y-3 font-body text-sm text-church-text-muted">
-              <p>Plazuela San Ignacio, Cra. 43 #49-59</p>
-              <p>+57 (604) 216 2674</p>
-              <p>info&#64;sanignaciomedellin.org</p>
+              <p class="whitespace-pre-line">{{ config?.address }}</p>
+              <p *ngIf="config?.phone">{{ config?.phone }}</p>
+              <p *ngIf="config?.email">{{ config?.email }}</p>
             </div>
           </div>
 
@@ -42,9 +43,9 @@ import { Component, OnInit } from '@angular/core';
           <div>
             <h4 class="mb-4 font-body text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-gold">Síguenos</h4>
             <ul class="space-y-2.5">
-              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="font-body text-sm text-church-text-muted transition-colors hover:text-white">Facebook</a></li>
-              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="font-body text-sm text-church-text-muted transition-colors hover:text-white">Instagram</a></li>
-              <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="font-body text-sm text-church-text-muted transition-colors hover:text-white">YouTube</a></li>
+              <li *ngIf="config?.facebook_url"><a [href]="config?.facebook_url" target="_blank" rel="noopener noreferrer" class="font-body text-sm text-church-text-muted transition-colors hover:text-white">Facebook</a></li>
+              <li *ngIf="config?.instagram_url"><a [href]="config?.instagram_url" target="_blank" rel="noopener noreferrer" class="font-body text-sm text-church-text-muted transition-colors hover:text-white">Instagram</a></li>
+              <li *ngIf="config?.youtube_url"><a [href]="config?.youtube_url" target="_blank" rel="noopener noreferrer" class="font-body text-sm text-church-text-muted transition-colors hover:text-white">YouTube</a></li>
             </ul>
             <blockquote class="mt-5 border-l-2 border-gold/30 pl-3">
               <p class="font-body text-xs italic leading-relaxed text-church-text-muted">
@@ -71,6 +72,7 @@ import { Component, OnInit } from '@angular/core';
             <span class="font-body text-xs text-church-text-muted">Visitas internas: {{ visitCount }}</span>
             <a href="#contacto" class="font-body text-xs text-church-text-muted transition-colors hover:text-white">Política de privacidad</a>
             <a href="#contacto" class="font-body text-xs text-church-text-muted transition-colors hover:text-white">Términos de uso</a>
+            <a href="javascript:void(0)" (click)="onAdminClick.emit()" class="font-body text-xs text-church-text-muted transition-colors hover:text-white font-semibold">Administración</a>
           </div>
         </div>
       </div>
@@ -81,7 +83,9 @@ import { Component, OnInit } from '@angular/core';
   `,
 })
 export class FooterComponent implements OnInit {
+  @Output() onAdminClick = new EventEmitter<void>();
   visitCount = 0;
+  config: SiteConfig | null = null;
 
   quickLinks = [
     { label: 'Horarios de misa', href: '#agenda' },
@@ -92,10 +96,14 @@ export class FooterComponent implements OnInit {
     { label: 'Transparencia', href: '#contacto' },
   ];
 
-  ngOnInit() {
+  constructor(private dataService: DataService) {}
+
+  ngOnInit(): void {
     const storageKey = 'sanIgnacioVisitCount';
     const currentCount = Number(localStorage.getItem(storageKey) ?? '0');
     this.visitCount = Number.isFinite(currentCount) ? currentCount + 1 : 1;
     localStorage.setItem(storageKey, String(this.visitCount));
+
+    this.dataService.getSiteConfig().subscribe(cfg => this.config = cfg);
   }
 }
